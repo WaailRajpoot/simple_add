@@ -29,6 +29,7 @@ pipeline {
                 echo"you are great"
             echo"hello world"
             echo "done"
+                echo "hi"
                   
             }
         }
