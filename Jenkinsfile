@@ -29,7 +29,7 @@ pipeline {
                 echo"you are great"
                 echo "this is nice"
                 echo "nice"
-                
+               echo "nice" 
                   
             }
         }
