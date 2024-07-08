@@ -27,6 +27,7 @@ pipeline {
             steps{
                 echo " great done with deploy / delivery of product..."
                 echo"you are great"
+                   echo"you are great"
             }
         }
 
