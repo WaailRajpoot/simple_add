@@ -30,6 +30,7 @@ pipeline {
             echo"hello world"
             echo "done"
                 echo "hi"
+                echo "hello"
                 
                   
             }
