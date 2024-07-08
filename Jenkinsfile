@@ -26,6 +26,7 @@ pipeline {
         stage('deliver'){
             steps{
                 echo " great done with deploy / delivery of product..."
+                echo"you are great"
             }
         }
 
