@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "myflaskapp"
-        DOCKER_TAG = "latest"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,9 +10,8 @@ pipeline {
     
         stage('Build') {
             steps {
-                script {
-                    def image = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
-                }
+                sh 'python3 -m py_compile src/add2vals.py src/calc.py'
+                stash includes: 'src/*.py*', name: 'stashing_build'
             }
         }
         
@@ -29,10 +23,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    
-                    sh 'docker-compose up -d' // Start the container in detached mode
-                }
+            
+                sh 'docker-compose up -d' // Start the container in detached mode
             }
         }
     }
