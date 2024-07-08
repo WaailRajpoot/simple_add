@@ -28,7 +28,7 @@ pipeline {
                 echo " great done with deploy / delivery of product..."
                 echo"you are great"
             echo"hello world"
-                echo"hi"
+            
                   
             }
         }
