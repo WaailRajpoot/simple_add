@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def image = docker.build("$:myflaskapp $:latest")
+                    def image = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
                 }
             }
         }
