@@ -27,7 +27,7 @@ pipeline {
                 echo "great done with deploy / delivery of product..."
                 echo "you are great"
                 echo "this is nice"
-                echo "nice"
+                sh "docker-compose up -d"
             }
         }
     }
