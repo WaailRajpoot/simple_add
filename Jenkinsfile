@@ -24,7 +24,7 @@ pipeline {
 
         stage('deploy') {
             steps {
-                echo "this is me"
+              sh 'docker-compose up -d' // Start the container in detached mode
             }
         }
     }
