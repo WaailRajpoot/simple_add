@@ -10,7 +10,6 @@ pipeline {
     
         stage('build') {
             steps {
-                git branch: 'main', credentialsId: '55aec472-e876-415a-a546-d0ef907b7cc1', url: 'https://github.com/harsh-singhal7385/simple_add.git'
                 sh 'python3 -m py_compile src/add2vals.py src/calc.py'
                 stash includes: 'src/*.py*', name: 'stashing_build'
             }
@@ -18,16 +17,22 @@ pipeline {
         
         stage('test') {
             steps {
+                unstash 'stashing_build'
                 sh 'python3 -m unittest src/test_calc.py'
             }
         }
 
-        stage('deliver') {
+        stage('deploy') {
             steps {
-                echo "great done with deploy / delivery of product..."
-                echo "you are great"
-                echo "this is nice"
-            
+                script {
+                    // Ensure virtual environment is set up and activated
+                    sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                    nohup python3 src/app.py &
+                    '''
+                }
             }
         }
     }
