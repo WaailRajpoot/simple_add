@@ -36,10 +36,8 @@ pipeline {
         stage('deploy') {
             steps {
                 // Ensure virtual environment is activated
-                sh '''
-                . venv/bin/activate
-                nohup python3 src/calc.py > app.log 2>&1 &
-                '''
+                 // Ensure Docker is running and accessible
+        sh 'docker-compose up -d'
             }
 
             post {
