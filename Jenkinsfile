@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-  environment {
+    environment {
         DOCKER_IMAGE = 'your_docker_image_name'
         CONTAINER_NAME = 'your_container_name'
     }
+
     stages {
         stage('checkout') {
             steps {
@@ -16,7 +17,7 @@ pipeline {
             steps {
                 git branch: 'main', credentialsId: '55aec472-e876-415a-a546-d0ef907b7cc1', url: 'https://github.com/harsh-singhal7385/simple_add.git'
                 sh 'python3 -m py_compile src/add2vals.py src/calc.py'
-                stash includes: 'src/*.py*', name: 'stashing_build'
+                stash name: 'stashing_build', path: 'src/*.py*'
             }
         }
 
@@ -28,12 +29,13 @@ pipeline {
 
         stage('deploy') {
             steps {
-               ipt {
+                script {
                     // Build Docker image
                     sh "docker build -t ${DOCKER_IMAGE} ."
 
                     // Run Docker container in detached mode
                     sh "docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${DOCKER_IMAGE}"
+                }
             }
         }
     }
@@ -50,4 +52,5 @@ pipeline {
         }
     }
 }
+
 
