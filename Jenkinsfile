@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    
-    environment {
-        DOCKER_IMAGE = 'your_docker_image_name'
-        CONTAINER_NAME = 'your_container_name'
-    }
-
 
     stages {
         stage('checkout') {
@@ -30,11 +24,7 @@ pipeline {
 
         stage('deploy') {
             steps {
-              // Build Docker image
-                    sh "docker build -t ${DOCKER_IMAGE} ."
-
-                    // Run Docker container in detached mode
-                    sh "docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${DOCKER_IMAGE}"
+                 sh "docker-compose up -d"
             }
         }
     }
