@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    
+    stages {
+        stage('Prepare') {
+            steps {
+                sh 'git config --global --add safe.directory /var/jenkins_home/workspace/project_1'
+            }
+        }
+
     stages {
         stage('checkout') {
             steps {
