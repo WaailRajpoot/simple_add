@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'Flask'
+        CONTAINER_NAME = 'localhost'
+
     stages {
         stage('Checkout') {
             steps {
@@ -24,8 +28,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-            
-                sh 'docker-compose up -d' // Start the container in detached mode
+            sh "docker build -t ${DOCKER_IMAGE} ."
+                 sh "docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${DOCKER_IMAGE}"
+                }
             }
         }
     }
