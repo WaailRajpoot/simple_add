@@ -46,6 +46,8 @@ pipeline {
                 success {
                     echo 'Application deployed successfully!'
                     echo 'You can access it at: http://localhost:5000'
+                    echo"iam waail"
+                    
                 }
             }
         }
