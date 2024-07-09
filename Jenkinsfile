@@ -1,14 +1,10 @@
 pipeline {
     agent any
 
-    
-    stages {
-        stage('Prepare') {
-            steps {
-                sh 'git config --global --add safe.directory /var/jenkins_home/workspace/project_1'
-            }
-        }
-
+  environment {
+        DOCKER_IMAGE = 'your_docker_image_name'
+        CONTAINER_NAME = 'your_container_name'
+    }
     stages {
         stage('checkout') {
             steps {
@@ -32,7 +28,12 @@ pipeline {
 
         stage('deploy') {
             steps {
-                 sh "docker-compose up -d"
+               ipt {
+                    // Build Docker image
+                    sh "docker build -t ${DOCKER_IMAGE} ."
+
+                    // Run Docker container in detached mode
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${DOCKER_IMAGE}"
             }
         }
     }
