@@ -36,7 +36,7 @@ pipeline {
                     // Create a shell script to activate the virtual environment and run the Flask app
                     sh '''#!/bin/bash
                     source venv/bin/activate
-                    FLASK_APP=src/app.py flask run --host=0.0.0.0 --port=3050 &
+                    FLASK_APP= simple_add/src/calc.py flask run --host=0.0.0.0 --port=3050 &
                     '''
                 }
             }
