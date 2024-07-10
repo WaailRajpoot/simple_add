@@ -35,9 +35,7 @@ pipeline {
 
         stage('deploy') {
             steps {
-                // Ensure virtual environment is activated
-                 // Ensure Docker is running and accessible
-        sh 'docker-compose up -d'
+                echo "this is me"
             }
 
             post {
