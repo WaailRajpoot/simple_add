@@ -35,15 +35,26 @@ pipeline {
 
         stage('deploy') {
             steps {
-                echo "this is me"
+                script {
+                    // Build the Docker image
+                    sh 'docker build -t my-flask-app .'
+                    
+                    // Stop any running container with the same name
+                    sh 'docker stop flask_app || true'
+                    
+                    // Remove any stopped container with the same name
+                    sh 'docker rm flask_app || true'
+                    
+                    // Run the Docker container
+                    sh 'docker run -d -p 3050:5000 --name flask_app my-flask-app'
+                }
             }
 
             post {
                 success {
                     echo 'Application deployed successfully!'
-                    echo 'You can access it at: http://localhost:5000'
-                    echo"iam waail"
-                    
+                    echo 'You can access it at: http://localhost:3050'
+                    echo "I am Waail"
                 }
             }
         }
