@@ -33,8 +33,11 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    // Run the Flask application on port 3050
-                    sh 'nohup . venv/bin/activate && FLASK_APP=src/app.py flask run --host=0.0.0.0 --port=3050 &'
+                    // Create a shell script to activate the virtual environment and run the Flask app
+                    sh '''#!/bin/bash
+                    source venv/bin/activate
+                    FLASK_APP=src/app.py flask run --host=0.0.0.0 --port=3050 &
+                    '''
                 }
             }
 
